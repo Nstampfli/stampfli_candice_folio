@@ -68,21 +68,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Custom cursor */}
-      <div
-        className={`pointer-events-none fixed z-50 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/5 backdrop-blur-sm transition-all duration-600 ease-out md:block ${
-          cursorHidden ? "opacity-0" : "opacity-100"
-        } hidden`}
-        style={{
-          left: `${cursorPosition.x}px`,
-          top: `${cursorPosition.y}px`,
-          transform: `translate(-50%, -50%) scale(${cursorHidden ? 0 : 1})`,
-          boxShadow: "0 0 15px rgba(255, 255, 255, 0.2)",
-        }}
-      >
-        <div className="h-2 w-2 rounded-full bg-gradient-primary"></div>
-      </div>
-
       {/* Hero section */}
       <div ref={heroRef} className="relative h-screen overflow-hidden">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">

@@ -1,39 +1,63 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useTheme } from "@/components/theme-context"
-import { Palette } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react";
+import { useTheme } from "@/components/theme-context";
+import { Palette } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function ColorThemeToggle() {
-  const { colorTheme, setColorTheme } = useTheme()
-  const [isOpen, setIsOpen] = useState(false)
+  const { colorTheme, setColorTheme, theme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
 
   const colorOptions = [
-    { name: "amber", label: "Ambre", class: "bg-gradient-to-r from-amber-500 to-orange-500" },
-    { name: "blue", label: "Bleu", class: "bg-gradient-to-r from-blue-500 to-cyan-500" },
-    { name: "purple", label: "Violet", class: "bg-gradient-to-r from-purple-500 to-pink-500" },
-    { name: "green", label: "Vert", class: "bg-gradient-to-r from-emerald-500 to-teal-500" },
-    { name: "pink", label: "Rose", class: "bg-gradient-to-r from-pink-500 to-rose-500" },
-  ]
+    {
+      name: "amber",
+      label: "Ambre",
+      class: "bg-gradient-to-r from-amber-500 to-orange-500",
+    },
+    {
+      name: "blue",
+      label: "Bleu",
+      class: "bg-gradient-to-r from-blue-500 to-cyan-500",
+    },
+    {
+      name: "purple",
+      label: "Violet",
+      class: "bg-gradient-to-r from-purple-500 to-pink-500",
+    },
+    {
+      name: "green",
+      label: "Vert",
+      class: "bg-gradient-to-r from-emerald-500 to-teal-500",
+    },
+    {
+      name: "pink",
+      label: "Rose",
+      class: "bg-gradient-to-r from-pink-500 to-rose-500",
+    },
+  ];
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   const handleColorChange = (color: string) => {
-    setColorTheme(color as any)
-    setIsOpen(false)
-  }
+    setColorTheme(color as any);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+        className="navbar-icon group hover:bg-primary/20"
         aria-label="Changer la couleur du thème"
       >
-        <Palette className="h-5 w-5 text-white" />
+        <Palette
+          className={`h-5 w-5 ${
+            theme === "light" ? "text-black" : "text-white"
+          } group-hover:text-primary`}
+        />
       </button>
 
       <AnimatePresence>
@@ -54,7 +78,9 @@ export function ColorThemeToggle() {
                     colorTheme === option.name ? "bg-muted" : ""
                   }`}
                 >
-                  <span className={`mr-2 inline-block h-4 w-4 rounded-full ${option.class}`}></span>
+                  <span
+                    className={`mr-2 inline-block h-4 w-4 rounded-full ${option.class}`}
+                  ></span>
                   {option.label}
                   {colorTheme === option.name && (
                     <svg
@@ -64,7 +90,12 @@ export function ColorThemeToggle() {
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   )}
                 </button>
@@ -74,5 +105,5 @@ export function ColorThemeToggle() {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }

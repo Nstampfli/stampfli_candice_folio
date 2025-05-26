@@ -1,26 +1,37 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { AnimatePresence, motion } from "framer-motion"
-import { Instagram, Linkedin, Mail, Menu, Play, X } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { ColorThemeToggle } from "@/components/color-theme-toggle"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { Instagram, Linkedin, Mail, Menu, Play, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { ColorThemeToggle } from "@/components/color-theme-toggle";
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
+      setScrolled(window.scrollY > 50);
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   const routes = [
     { href: "/portfolio", label: "Portfolio" },
@@ -30,17 +41,17 @@ export function Navigation() {
     { href: "/stop-motion", label: "Stop Motion" },
     { href: "/comics", label: "BD" },
     { href: "/contact", label: "CV/Contact" },
-  ]
+  ];
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 bg-background/20 backdrop-blur-md ${
         scrolled ? "bg-background/80 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:h-20">
-        <Link href="/" className="z-50 text-xl font-bold text-white md:text-2xl">
-          <span className="font-serif italic text-on-gradient">Candice</span>
+        <Link href="/" className="z-50 text-xl font-bold md:text-2xl">
+          <span className="font-serif italic">Candice</span>
         </Link>
 
         {/* Desktop Navigation - visible above 900px */}
@@ -49,8 +60,8 @@ export function Navigation() {
             <Link
               key={route.href}
               href={route.href}
-              className={`relative text-sm font-medium uppercase tracking-wider text-white text-on-gradient transition-colors duration-500 hover:text-primary ${
-                pathname === route.href ? "text-primary" : ""
+              className={`relative text-sm font-medium uppercase tracking-wider transition-colors duration-500 hover:text-primary ${
+                pathname === route.href ? "text-primary" : "text-foreground"
               }`}
             >
               {pathname === route.href && (
@@ -70,8 +81,16 @@ export function Navigation() {
           <ColorThemeToggle />
 
           {/* Mobile Menu Button - visible below 900px */}
-          <button onClick={() => setIsOpen(!isOpen)} className="navbar-icon z-50 lg:hidden" aria-label="Toggle menu">
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20 z-50 lg:hidden"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <X className="h-6 w-6 text-foreground" />
+            ) : (
+              <Menu className="h-6 w-6 text-foreground" />
+            )}
           </button>
         </div>
       </div>
@@ -97,7 +116,9 @@ export function Navigation() {
                   <Link
                     href={route.href}
                     onClick={() => setIsOpen(false)}
-                    className={`text-2xl font-medium text-foreground ${pathname === route.href ? "text-primary" : ""}`}
+                    className={`text-2xl font-medium text-foreground ${
+                      pathname === route.href ? "text-primary" : ""
+                    }`}
                   >
                     {route.label}
                   </Link>
@@ -111,20 +132,32 @@ export function Navigation() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="mt-auto flex justify-center space-x-8 p-4"
             >
-              <Link href="https://instagram.com" className="navbar-icon">
-                <Instagram className="h-6 w-6" />
+              <Link
+                href="https://instagram.com"
+                className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+              >
+                <Instagram className="h-6 w-6 text-foreground" />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link href="https://linkedin.com" className="navbar-icon">
-                <Linkedin className="h-6 w-6" />
+              <Link
+                href="https://linkedin.com"
+                className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+              >
+                <Linkedin className="h-6 w-6 text-foreground" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
-              <Link href="https://vimeo.com" className="navbar-icon">
-                <Play className="h-6 w-6" />
+              <Link
+                href="https://vimeo.com"
+                className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+              >
+                <Play className="h-6 w-6 text-foreground" />
                 <span className="sr-only">Vimeo</span>
               </Link>
-              <Link href="mailto:email@example.com" className="navbar-icon">
-                <Mail className="h-6 w-6" />
+              <Link
+                href="mailto:email@example.com"
+                className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+              >
+                <Mail className="h-6 w-6 text-foreground" />
                 <span className="sr-only">Email</span>
               </Link>
             </motion.div>
@@ -132,5 +165,5 @@ export function Navigation() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }

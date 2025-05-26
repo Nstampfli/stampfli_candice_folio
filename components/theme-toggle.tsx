@@ -1,17 +1,19 @@
-"use client"
+"use client";
 
-import { useTheme } from "@/components/theme-context"
-import { Moon, Sun } from "lucide-react"
-import { motion } from "framer-motion"
+import { useTheme } from "@/components/theme-context";
+import { Moon, Sun } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="navbar-icon"
-      aria-label={theme === "light" ? "Activer le mode sombre" : "Activer le mode clair"}
+      className="navbar-icon group hover:bg-primary/20"
+      aria-label={
+        theme === "light" ? "Activer le mode sombre" : "Activer le mode clair"
+      }
     >
       <motion.div
         initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
@@ -20,8 +22,12 @@ export function ThemeToggle() {
         transition={{ duration: 0.3 }}
         key={theme === "light" ? "light" : "dark"}
       >
-        {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+        {theme === "light" ? (
+          <Moon className="h-5 w-5 text-foreground group-hover:text-primary" />
+        ) : (
+          <Sun className="h-5 w-5 text-foreground group-hover:text-primary" />
+        )}
       </motion.div>
     </button>
-  )
+  );
 }
