@@ -103,7 +103,7 @@ export function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 flex flex-col bg-gradient-to-b from-background/95 to-background/95 p-4 pt-24 backdrop-blur-md lg:hidden"
+            className="fixed inset-0 top-0 min-h-screen z-40 flex flex-col bg-gradient-to-b from-background/95 to-background/95 p-4 pt-24 backdrop-blur-md lg:hidden"
           >
             <nav className="flex flex-col space-y-6 p-4">
               {routes.map((route, index) => (

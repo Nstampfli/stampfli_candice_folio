@@ -69,67 +69,74 @@ export default function Home() {
   return (
     <>
       {/* Hero section */}
-      <div ref={heroRef} className="relative h-screen overflow-hidden">
+      <div ref={heroRef} className="relative min-h-screen overflow-hidden">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/80 to-primary/60 opacity-70"></div>
-          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/80 to-primary/60 opacity-70"></div>
+            <div className="absolute inset-0 bg-white opacity-20"></div>
+          </div>
         </motion.div>
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4">
+        <div className="absolute inset-0 z-10 flex flex-col md:flex-row items-center justify-center px-4 md:px-12 lg:px-16">
+          {/* Left side - Text content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-center"
+            className="w-full md:w-1/2 text-center md:text-left flex flex-col items-center md:items-start"
           >
-            <h1 className="mb-2 font-serif text-6xl font-bold italic tracking-tight text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] sm:text-7xl md:text-8xl">
+            <h1 className="mb-2 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold italic tracking-tight text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
               Candice
             </h1>
-            <h2 className="mb-6 font-serif text-3xl font-medium italic tracking-tight text-white/90 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] sm:text-4xl md:text-5xl">
+            <h2 className="mb-6 font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl  font-semibold italic tracking-tight text-white/90 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
               Stampfli
             </h2>
-            <div className="mx-auto mb-8 h-px w-24 bg-white/50"></div>
-            <p className="mx-auto mb-12 max-w-xl text-lg font-light tracking-wide text-white/90 md:text-xl">
+            <div className="mx-auto md:mx-0 mb-8 h-px w-24 bg-white/70"></div>
+            <p className="mx-auto md:mx-0 mb-8 text-base font-semibold md:text-xl tracking-wide text-white">
               Animation • Character Design • Illustration • Stop Motion
             </p>
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 1.2 }}
-              className="relative mx-auto mb-16 h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px]"
-            >
+          {/* Right side - Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 1.2 }}
+            className="w-full md:w-1/2 flex justify-center md:justify-end lg:justify-center md:[&>div]:scale-90 lg:[&>div]:scale-100"
+          >
+            <div className="relative h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[400px] md:w-[400px]">
               <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-70 blur-xl"></div>
               <Image
-                src="/placeholder.svg?height=500&width=500"
+                src="/Image/candice_stampfli.jpg"
                 width={500}
                 height={500}
                 alt="Candice artwork"
-                className="relative z-10 rounded-full object-cover"
+                className="relative z-10 rounded-full object-cover w-full h-full"
                 priority
               />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 1 }}
-              className="mt-8"
-            >
-              <Link
-                href="/portfolio"
-                className="group relative inline-flex items-center overflow-hidden rounded-full bg-white/10 px-8 py-3 text-lg font-medium text-white backdrop-blur-md transition-all duration-500 hover:bg-white/20 hover:pr-12"
-              >
-                <span className="relative z-10">Découvrir mon univers</span>
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 transition-all duration-500 group-hover:opacity-100">
-                  <ArrowRight className="h-5 w-5" />
-                </span>
-              </Link>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
 
+        {/* Bottom content - Button and arrow */}
         <div className="absolute bottom-10 left-0 right-0 z-10 flex flex-col items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 1 }}
+            className="hidden md:block mb-8"
+          >
+            <Link
+              href="/portfolio"
+              className="group relative inline-flex items-center overflow-hidden rounded-full bg-white/10 px-8 py-3 text-lg font-medium text-white backdrop-blur-md transition-all duration-500 hover:bg-white/20 hover:pr-12"
+            >
+              <span className="relative z-10">Découvrir mon univers</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                <ArrowRight className="h-5 w-5" />
+              </span>
+            </Link>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -158,17 +165,19 @@ export default function Home() {
           {Array.from({ length: 30 }).map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full bg-white opacity-20"
+              className="absolute rounded-full bg-white opacity-30"
               style={{
-                width: `${Math.random() * 10 + 2}px`,
-                height: `${Math.random() * 10 + 2}px`,
+                width: `${Math.random() * 15 + 2}px`,
+                height: `${Math.random() * 15 + 2}px`,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                animationDuration: `${Math.random() * 500 + 300}s`, // 10x plus lent (50->500, 30->300)
-                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${Math.random() * 1000 + 8000}s`, // Beaucoup plus lent
+                animationDelay: `${Math.random() * 10}s`, // Plus de délai aléatoire
                 animationName: "float",
                 animationIterationCount: "infinite",
                 animationTimingFunction: "ease-in-out",
+                transform: "translate(0, 0)", // Position initiale
+                transition: "transform 8s ease-out", // Transition plus lente pour le mouvement de la souris
               }}
             />
           ))}
