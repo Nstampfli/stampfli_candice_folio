@@ -45,7 +45,7 @@ export function Navigation() {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 bg-background/20 backdrop-blur-md ${
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 bg-background/30 backdrop-blur-md ${
         scrolled ? "bg-background/80 backdrop-blur-md" : "bg-transparent"
       }`}
     >
