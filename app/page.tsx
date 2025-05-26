@@ -72,7 +72,7 @@ export default function Home() {
       <div ref={heroRef} className="relative min-h-screen overflow-hidden">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/80 to-primary/60 opacity-70"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/80 to-primary/60"></div>
             <div className="absolute inset-0 bg-white opacity-20"></div>
           </div>
         </motion.div>
@@ -111,7 +111,7 @@ export default function Home() {
                 width={500}
                 height={500}
                 alt="Candice artwork"
-                className="relative z-10 rounded-full object-cover w-full h-full"
+                className="relative z-10 rounded-full object-cover"
                 priority
               />
             </div>
