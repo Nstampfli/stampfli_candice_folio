@@ -46,7 +46,7 @@ export function Navigation() {
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 bg-background/30 backdrop-blur-md ${
-        scrolled ? "bg-background/80 backdrop-blur-md" : "bg-transparent"
+        scrolled ? "bg-background/80" : "bg-background/30"
       }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:h-20">
