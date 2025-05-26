@@ -1,44 +1,44 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useRef } from "react"
-import { useParams, useRouter } from "next/navigation"
-import Image from "next/image"
-import Link from "next/link"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowLeft, Calendar, Tag, User, ExternalLink } from "lucide-react"
-import { PasswordModal } from "@/components/password-modal"
-import { ImageModal } from "@/components/image-modal"
+import { useEffect, useState, useRef } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowLeft, Calendar, Tag, User, ExternalLink } from "lucide-react";
+import { PasswordModal } from "@/components/password-modal";
+import { ImageModal } from "@/components/image-modal";
 
 export default function ProjectDetailPage() {
-  const params = useParams()
-  const router = useRouter()
-  const projectId = params.id as string
-  const headerRef = useRef<HTMLDivElement>(null)
+  const params = useParams();
+  const router = useRouter();
+  const projectId = params.id as string;
+  const headerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: headerRef,
     offset: ["start start", "end start"],
-  })
+  });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // État pour le modal d'image
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Fonction pour ouvrir le modal avec l'image sélectionnée
   const openModal = (imageSrc: string) => {
-    setSelectedImage(imageSrc)
-    setModalOpen(true)
-  }
+    setSelectedImage(imageSrc);
+    setModalOpen(true);
+  };
 
   // Fonction pour fermer le modal
   const closeModal = () => {
-    setModalOpen(false)
-  }
+    setModalOpen(false);
+  };
 
   // In a real app, this data would come from a database or API
   const projectData = {
@@ -48,11 +48,13 @@ export default function ProjectDetailPage() {
         "Un projet d'évaluation de la littératie et du langage pour les enfants. Ce projet a été réalisé en collaboration avec une équipe d'éducateurs et de designers.",
       headerImage: "/placeholder.svg?height=1080&width=1920&text=Lila+Project",
       images: Array.from({ length: 6 }).map(
-        (_, i) => `/placeholder.svg?height=800&width=1200&text=Lila+Image+${i + 1}`,
+        (_, i) =>
+          `/placeholder.svg?height=800&width=1200&text=Lila+Image+${i + 1}`
       ),
       videos: ["https://www.youtube.com/embed/dQw4w9WgXcQ"],
       process: Array.from({ length: 3 }).map(
-        (_, i) => `/placeholder.svg?height=800&width=1200&text=Lila+Process+${i + 1}`,
+        (_, i) =>
+          `/placeholder.svg?height=800&width=1200&text=Lila+Process+${i + 1}`
       ),
       password: "demo123", // In a real app, this would be handled securely on the server
       date: "2023",
@@ -69,13 +71,16 @@ export default function ProjectDetailPage() {
       title: "QuiQuoi",
       description:
         "Projet d'animation interactive pour une exposition muséale. Les visiteurs peuvent interagir avec les personnages animés.",
-      headerImage: "/placeholder.svg?height=1080&width=1920&text=QuiQuoi+Project",
+      headerImage:
+        "/placeholder.svg?height=1080&width=1920&text=QuiQuoi+Project",
       images: Array.from({ length: 5 }).map(
-        (_, i) => `/placeholder.svg?height=800&width=1200&text=QuiQuoi+Image+${i + 1}`,
+        (_, i) =>
+          `/placeholder.svg?height=800&width=1200&text=QuiQuoi+Image+${i + 1}`
       ),
       videos: ["https://www.youtube.com/embed/dQw4w9WgXcQ"],
       process: Array.from({ length: 4 }).map(
-        (_, i) => `/placeholder.svg?height=800&width=1200&text=QuiQuoi+Process+${i + 1}`,
+        (_, i) =>
+          `/placeholder.svg?height=800&width=1200&text=QuiQuoi+Process+${i + 1}`
       ),
       date: "2022",
       client: "Musée d'Art Moderne",
@@ -88,46 +93,46 @@ export default function ProjectDetailPage() {
       isProtected: false,
     },
     // Autres projets...
-  }
+  };
 
-  const [project, setProject] = useState<any>(null)
-  const [activeTab, setActiveTab] = useState("overview")
+  const [project, setProject] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState("overview");
 
   useEffect(() => {
     // @ts-ignore - This is just for demo purposes
-    const projectInfo = projectData[projectId] || null
-    setProject(projectInfo)
+    const projectInfo = projectData[projectId] || null;
+    setProject(projectInfo);
 
     // Si le projet est protégé et que c'est le premier (lila), vérifier l'authentification
     if (projectInfo && projectInfo.isProtected && projectId === "lila") {
-      setIsAuthenticated(false)
+      setIsAuthenticated(false);
     } else {
-      setIsAuthenticated(true)
-      setIsPasswordModalOpen(false)
+      setIsAuthenticated(true);
+      setIsPasswordModalOpen(false);
     }
-  }, [projectId])
+  }, [projectId]);
 
   const handlePasswordSubmit = (password: string) => {
     // @ts-ignore - This is just for demo purposes
     if (project && password === project.password) {
-      setIsAuthenticated(true)
-      setIsPasswordModalOpen(false)
+      setIsAuthenticated(true);
+      setIsPasswordModalOpen(false);
     } else {
       // In a real app, you would handle incorrect password more gracefully
-      alert("Mot de passe incorrect")
+      alert("Mot de passe incorrect");
     }
-  }
+  };
 
   const handleClosePasswordModal = () => {
-    router.push("/projects")
-  }
+    router.push("/projects");
+  };
 
   if (!project) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-neutral-950">
         <p className="text-2xl text-white">Projet non trouvé</p>
       </div>
-    )
+    );
   }
 
   if (project.isProtected && !isAuthenticated) {
@@ -138,7 +143,7 @@ export default function ProjectDetailPage() {
         onSubmit={handlePasswordSubmit}
         projectTitle={project.title}
       />
-    )
+    );
   }
 
   const container = {
@@ -150,7 +155,7 @@ export default function ProjectDetailPage() {
         delayChildren: 0.3,
       },
     },
-  }
+  };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
@@ -162,16 +167,24 @@ export default function ProjectDetailPage() {
         ease: [0.22, 1, 0.36, 1],
       },
     },
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="min-h-screen bg-background">
       {/* Parallax header */}
-      <div ref={headerRef} className="relative h-[50vh] overflow-hidden md:h-[70vh]">
+      <div
+        ref={headerRef}
+        className="relative h-[50vh] overflow-hidden md:h-[70vh]"
+      >
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
-          <Image src={project.headerImage || "/placeholder.svg"} alt={project.title} fill className="object-cover" />
+          <Image
+            src={project.headerImage || "/placeholder.svg"}
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-primary opacity-60 mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-950"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background"></div>
         </motion.div>
 
         <div className="absolute inset-0 z-10 flex items-center justify-center">
@@ -183,16 +196,18 @@ export default function ProjectDetailPage() {
           >
             <Link
               href="/projects"
-              className="group mb-8 inline-flex items-center text-sm font-medium text-white/80 transition-colors hover:text-white"
+              className="group mb-8 inline-flex items-center text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
             >
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
               Retour aux projets
             </Link>
-            <h1 className="font-serif text-5xl font-bold italic text-white text-on-gradient drop-shadow-lg md:text-6xl">
+            <h1 className="font-serif text-5xl font-bold italic text-foreground text-on-gradient drop-shadow-lg md:text-6xl">
               {project.title}
             </h1>
-            <div className="mx-auto mt-6 h-px w-24 bg-white/30"></div>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 text-on-gradient">{project.description}</p>
+            <div className="mx-auto mt-6 h-px w-24 bg-foreground/30"></div>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/90 text-on-gradient">
+              {project.description}
+            </p>
           </motion.div>
         </div>
       </div>
@@ -201,29 +216,29 @@ export default function ProjectDetailPage() {
       <div className="container mx-auto px-4 py-16">
         {/* Project info cards */}
         <div className="mb-16 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-          <div className="rounded-xl bg-white/5 p-4">
+          <div className="rounded-xl bg-card p-4">
             <div className="mb-2 flex items-center text-primary">
               <Calendar className="mr-2 h-5 w-5" />
               <h3 className="text-sm font-semibold uppercase">Date</h3>
             </div>
-            <p className="text-white">{project.date}</p>
+            <p className="text-foreground">{project.date}</p>
           </div>
-          <div className="rounded-xl bg-white/5 p-4">
+          <div className="rounded-xl bg-card p-4">
             <div className="mb-2 flex items-center text-primary">
               <User className="mr-2 h-5 w-5" />
               <h3 className="text-sm font-semibold uppercase">Client</h3>
             </div>
-            <p className="text-white">{project.client}</p>
+            <p className="text-foreground">{project.client}</p>
           </div>
-          <div className="rounded-xl bg-white/5 p-4">
+          <div className="rounded-xl bg-card p-4">
             <div className="mb-2 flex items-center text-primary">
               <Tag className="mr-2 h-5 w-5" />
               <h3 className="text-sm font-semibold uppercase">Catégorie</h3>
             </div>
-            <p className="text-white">{project.category}</p>
+            <p className="text-foreground">{project.category}</p>
           </div>
           {project.website && (
-            <div className="rounded-xl bg-white/5 p-4">
+            <div className="rounded-xl bg-card p-4">
               <div className="mb-2 flex items-center text-primary">
                 <ExternalLink className="mr-2 h-5 w-5" />
                 <h3 className="text-sm font-semibold uppercase">Site Web</h3>
@@ -232,7 +247,7 @@ export default function ProjectDetailPage() {
                 href={project.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white underline hover:text-primary"
+                className="text-foreground underline hover:text-primary"
               >
                 Voir le site
               </a>
@@ -242,11 +257,13 @@ export default function ProjectDetailPage() {
 
         {/* Tabs */}
         <div className="mb-16 flex justify-center">
-          <div className="inline-flex rounded-full bg-black/20 p-1 backdrop-blur-sm">
+          <div className="inline-flex rounded-full bg-card/20 p-1 backdrop-blur-sm">
             <button
               onClick={() => setActiveTab("overview")}
               className={`relative rounded-full px-6 py-2 text-sm font-medium transition-colors duration-300 ${
-                activeTab === "overview" ? "text-white" : "text-white/60 hover:text-white/80"
+                activeTab === "overview"
+                  ? "text-white"
+                  : "text-foreground hover:text-foreground/60"
               }`}
             >
               {activeTab === "overview" && (
@@ -256,12 +273,14 @@ export default function ProjectDetailPage() {
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-              <span className="relative z-10 text-on-gradient">Aperçu</span>
+              <span className="relative z-10">Aperçu</span>
             </button>
             <button
               onClick={() => setActiveTab("gallery")}
               className={`relative rounded-full px-6 py-2 text-sm font-medium transition-colors duration-300 ${
-                activeTab === "gallery" ? "text-white" : "text-white/60 hover:text-white/80"
+                activeTab === "gallery"
+                  ? "text-white"
+                  : "text-foreground hover:text-foreground/60"
               }`}
             >
               {activeTab === "gallery" && (
@@ -271,12 +290,14 @@ export default function ProjectDetailPage() {
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-              <span className="relative z-10 text-on-gradient">Galerie</span>
+              <span className="relative z-10">Galerie</span>
             </button>
             <button
               onClick={() => setActiveTab("videos")}
               className={`relative rounded-full px-6 py-2 text-sm font-medium transition-colors duration-300 ${
-                activeTab === "videos" ? "text-white" : "text-white/60 hover:text-white/80"
+                activeTab === "videos"
+                  ? "text-white"
+                  : "text-foreground hover:text-foreground/60"
               }`}
             >
               {activeTab === "videos" && (
@@ -286,12 +307,14 @@ export default function ProjectDetailPage() {
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-              <span className="relative z-10 text-on-gradient">Vidéos</span>
+              <span className="relative z-10">Vidéos</span>
             </button>
             <button
               onClick={() => setActiveTab("process")}
               className={`relative rounded-full px-6 py-2 text-sm font-medium transition-colors duration-300 ${
-                activeTab === "process" ? "text-white" : "text-white/60 hover:text-white/80"
+                activeTab === "process"
+                  ? "text-white"
+                  : "text-foreground hover:text-foreground/60"
               }`}
             >
               {activeTab === "process" && (
@@ -301,7 +324,7 @@ export default function ProjectDetailPage() {
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-              <span className="relative z-10 text-on-gradient">Processus</span>
+              <span className="relative z-10">Processus</span>
             </button>
           </div>
         </div>
@@ -315,17 +338,25 @@ export default function ProjectDetailPage() {
             className="grid gap-12 md:grid-cols-2"
           >
             <div>
-              <h2 className="mb-6 font-serif text-3xl font-bold text-white">Le Défi</h2>
-              <p className="text-lg leading-relaxed text-white/80">{project.challenge}</p>
+              <h2 className="mb-6 font-serif text-3xl font-bold text-foreground">
+                Le Défi
+              </h2>
+              <p className="text-lg leading-relaxed text-foreground/80">
+                {project.challenge}
+              </p>
 
-              <h2 className="mb-6 mt-12 font-serif text-3xl font-bold text-white">La Solution</h2>
-              <p className="text-lg leading-relaxed text-white/80">{project.solution}</p>
+              <h2 className="mb-6 mt-12 font-serif text-3xl font-bold text-foreground">
+                La Solution
+              </h2>
+              <p className="text-lg leading-relaxed text-foreground/80">
+                {project.solution}
+              </p>
             </div>
 
             <div className="relative">
               <div className="absolute -left-4 -top-4 h-24 w-24 rounded-full bg-primary opacity-70 blur-xl"></div>
               <div className="overflow-hidden rounded-xl bg-gradient-primary-br p-0.5 shadow-xl">
-                <div className="aspect-video overflow-hidden rounded-lg bg-black">
+                <div className="aspect-video overflow-hidden rounded-lg bg-card">
                   <Image
                     src={project.images[0] || "/placeholder.svg"}
                     alt={`${project.title} aperçu`}
@@ -355,7 +386,7 @@ export default function ProjectDetailPage() {
                 onClick={() => openModal(image)}
               >
                 <div className="overflow-hidden rounded-xl bg-gradient-primary-br p-0.5">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] bg-neutral-900">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] bg-card">
                     <Image
                       src={image || "/placeholder.svg"}
                       alt={`${project.title} image ${index + 1}`}
@@ -371,15 +402,20 @@ export default function ProjectDetailPage() {
 
         {/* Videos */}
         {activeTab === "videos" && (
-          <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="space-y-8"
+          >
             {project.videos.map((videoUrl: string, index: number) => (
               <motion.div
                 key={index}
                 variants={item}
                 className="overflow-hidden rounded-xl bg-gradient-primary-br p-0.5"
               >
-                <div className="rounded-[10px] bg-neutral-900 p-6">
-                  <h3 className="mb-4 font-serif text-xl font-bold text-white">
+                <div className="rounded-[10px] bg-card p-6">
+                  <h3 className="mb-4 font-serif text-xl font-bold text-foreground">
                     {project.title} - Vidéo {index + 1}
                   </h3>
                   <div className="aspect-video overflow-hidden rounded-lg">
@@ -413,7 +449,7 @@ export default function ProjectDetailPage() {
                 onClick={() => openModal(image)}
               >
                 <div className="overflow-hidden rounded-xl bg-gradient-primary-br p-0.5">
-                  <div className="relative aspect-video overflow-hidden rounded-[10px] bg-neutral-900">
+                  <div className="relative aspect-video overflow-hidden rounded-[10px] bg-card">
                     <Image
                       src={image || "/placeholder.svg"}
                       alt={`${project.title} process ${index + 1}`}
@@ -438,5 +474,5 @@ export default function ProjectDetailPage() {
         />
       )}
     </div>
-  )
+  );
 }

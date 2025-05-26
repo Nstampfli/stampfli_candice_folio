@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Instagram, Linkedin, Mail, Menu, Play } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Instagram, Linkedin, Mail, Menu, Play } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function SiteHeader() {
-  const pathname = usePathname()
-  const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   const routes = [
     { href: "/portfolio", label: "Portfolio" },
@@ -21,7 +21,7 @@ export function SiteHeader() {
     { href: "/stop-motion", label: "Stop Motion" },
     { href: "/comics", label: "BD" },
     { href: "/contact", label: "CV/Contact" },
-  ]
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -39,7 +39,9 @@ export function SiteHeader() {
                 href={route.href}
                 className={cn(
                   "transition-colors hover:text-foreground/80",
-                  pathname === route.href ? "text-primary font-semibold" : "text-foreground/60",
+                  pathname === route.href
+                    ? "text-primary font-semibold"
+                    : "text-foreground/60"
                 )}
               >
                 {route.label}
@@ -48,19 +50,31 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="hidden md:flex md:items-center md:justify-end md:gap-4">
-          <Link href="https://instagram.com" className="text-muted-foreground hover:text-foreground">
+          <Link
+            href="https://instagram.com"
+            className="text-muted-foreground hover:text-foreground"
+          >
             <Instagram className="h-5 w-5" />
             <span className="sr-only">Instagram</span>
           </Link>
-          <Link href="https://linkedin.com" className="text-muted-foreground hover:text-foreground">
+          <Link
+            href="https://linkedin.com"
+            className="text-muted-foreground hover:text-foreground"
+          >
             <Linkedin className="h-5 w-5" />
             <span className="sr-only">LinkedIn</span>
           </Link>
-          <Link href="https://vimeo.com" className="text-muted-foreground hover:text-foreground">
+          <Link
+            href="https://vimeo.com"
+            className="text-muted-foreground hover:text-foreground"
+          >
             <Play className="h-5 w-5" />
             <span className="sr-only">Vimeo</span>
           </Link>
-          <Link href="mailto:email@example.com" className="text-muted-foreground hover:text-foreground">
+          <Link
+            href="mailto:email@example.com"
+            className="text-muted-foreground hover:text-foreground"
+          >
             <Mail className="h-5 w-5" />
             <span className="sr-only">Email</span>
           </Link>
@@ -75,7 +89,11 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="left">
               <div className="px-2 py-6">
-                <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+                <Link
+                  href="/"
+                  className="flex items-center"
+                  onClick={() => setIsOpen(false)}
+                >
                   <span className="text-xl font-bold">Candice</span>
                 </Link>
                 <nav className="mt-6 flex flex-col space-y-4">
@@ -85,7 +103,9 @@ export function SiteHeader() {
                       href={route.href}
                       className={cn(
                         "flex py-2 text-base font-medium transition-colors hover:text-foreground/80",
-                        pathname === route.href ? "text-primary font-semibold" : "text-foreground/60",
+                        pathname === route.href
+                          ? "text-primary font-semibold"
+                          : "text-foreground/60"
                       )}
                       onClick={() => setIsOpen(false)}
                     >
@@ -94,19 +114,31 @@ export function SiteHeader() {
                   ))}
                 </nav>
                 <div className="mt-6 flex items-center gap-4">
-                  <Link href="https://instagram.com" className="text-muted-foreground hover:text-foreground">
+                  <Link
+                    href="https://instagram.com"
+                    className="text-muted-foreground hover:text-foreground"
+                  >
                     <Instagram className="h-5 w-5" />
                     <span className="sr-only">Instagram</span>
                   </Link>
-                  <Link href="https://linkedin.com" className="text-muted-foreground hover:text-foreground">
+                  <Link
+                    href="https://linkedin.com"
+                    className="text-muted-foreground hover:text-foreground"
+                  >
                     <Linkedin className="h-5 w-5" />
                     <span className="sr-only">LinkedIn</span>
                   </Link>
-                  <Link href="https://vimeo.com" className="text-muted-foreground hover:text-foreground">
+                  <Link
+                    href="https://vimeo.com"
+                    className="text-muted-foreground hover:text-foreground"
+                  >
                     <Play className="h-5 w-5" />
                     <span className="sr-only">Vimeo</span>
                   </Link>
-                  <Link href="mailto:email@example.com" className="text-muted-foreground hover:text-foreground">
+                  <Link
+                    href="mailto:email@example.com"
+                    className="text-muted-foreground hover:text-foreground"
+                  >
                     <Mail className="h-5 w-5" />
                     <span className="sr-only">Email</span>
                   </Link>
@@ -117,5 +149,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }

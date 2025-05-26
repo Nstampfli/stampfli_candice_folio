@@ -1,49 +1,49 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
-  const [cursorHidden, setCursorHidden] = useState(true)
-  const heroRef = useRef<HTMLDivElement>(null)
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [cursorHidden, setCursorHidden] = useState(true);
+  const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
-  })
+  });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 250])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 250]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   // Après les déclarations useState
   const scrollToContent = () => {
     window.scrollTo({
       top: window.innerHeight,
       behavior: "smooth",
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY })
-      setCursorHidden(false)
-    }
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+      setCursorHidden(false);
+    };
 
     const handleMouseLeave = () => {
-      setCursorHidden(true)
-    }
+      setCursorHidden(true);
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
-    document.body.addEventListener("mouseleave", handleMouseLeave)
+    window.addEventListener("mousemove", handleMouseMove);
+    document.body.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      document.body.removeEventListener("mouseleave", handleMouseLeave)
-    }
-  }, [])
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
 
   const featuredWorks = [
     {
@@ -64,13 +64,15 @@ export default function Home() {
       image: "/placeholder.svg?height=600&width=800&text=Illustration",
       link: "/illustrations",
     },
-  ]
+  ];
 
   return (
     <>
       {/* Custom cursor */}
       <div
-        className={`pointer-events-none fixed z-50 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/5 backdrop-blur-sm transition-all duration-700 ease-out md:block ${cursorHidden ? "opacity-0" : "opacity-100"} hidden`}
+        className={`pointer-events-none fixed z-50 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/5 backdrop-blur-sm transition-all duration-600 ease-out md:block ${
+          cursorHidden ? "opacity-0" : "opacity-100"
+        } hidden`}
         style={{
           left: `${cursorPosition.x}px`,
           top: `${cursorPosition.y}px`,
@@ -157,7 +159,12 @@ export default function Home() {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
             </svg>
           </motion.div>
         </div>
@@ -193,7 +200,9 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="mb-16 text-center"
           >
-            <h2 className="font-serif text-5xl font-bold italic text-foreground md:text-6xl">Univers Créatif</h2>
+            <h2 className="font-serif text-5xl font-bold italic text-foreground md:text-6xl">
+              Univers Créatif
+            </h2>
             <div className="mx-auto mt-6 h-px w-24 bg-gradient-primary"></div>
           </motion.div>
 
@@ -204,7 +213,11 @@ export default function Home() {
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.2,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
                 <Link href={work.link} className="group block">
                   <div className="overflow-hidden rounded-2xl bg-gradient-primary-br p-0.5">
@@ -221,7 +234,9 @@ export default function Home() {
                           <div className="mb-2 text-sm font-medium uppercase tracking-wider text-white/70">
                             {work.category}
                           </div>
-                          <h3 className="font-serif text-2xl font-bold">{work.title}</h3>
+                          <h3 className="font-serif text-2xl font-bold">
+                            {work.title}
+                          </h3>
                         </div>
                       </div>
                     </div>
@@ -279,17 +294,25 @@ export default function Home() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col justify-center"
             >
-              <h2 className="mb-6 font-serif text-4xl font-bold italic text-foreground md:text-5xl">À propos</h2>
+              <h2 className="mb-6 font-serif text-4xl font-bold italic text-foreground md:text-5xl">
+                À propos
+              </h2>
               <div className="mb-6 h-px w-16 bg-gradient-primary"></div>
               <p className="mb-6 text-lg leading-relaxed text-foreground/80">
-                Artiste passionnée spécialisée dans l'animation 2D, le character design et l'illustration. Mon travail
-                se concentre sur la création de personnages expressifs et d'univers immersifs.
+                Artiste passionnée spécialisée dans l'animation 2D, le character
+                design et l'illustration. Mon travail se concentre sur la
+                création de personnages expressifs et d'univers immersifs.
               </p>
               <p className="mb-8 text-lg leading-relaxed text-foreground/80">
-                Diplômée de l'École des Gobelins, j'ai travaillé sur divers projets allant des courts-métrages
-                d'animation aux illustrations pour l'édition, en passant par le stop motion et la bande dessinée.
+                Diplômée de l'École des Gobelins, j'ai travaillé sur divers
+                projets allant des courts-métrages d'animation aux illustrations
+                pour l'édition, en passant par le stop motion et la bande
+                dessinée.
               </p>
-              <Link href="/contact" className="group inline-flex items-center text-lg font-medium text-foreground">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center text-lg font-medium text-foreground"
+              >
                 En savoir plus
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
@@ -303,5 +326,5 @@ export default function Home() {
         </div>
       </section>
     </>
-  )
+  );
 }
